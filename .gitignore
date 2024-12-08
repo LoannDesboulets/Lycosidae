@@ -1,0 +1,4 @@
+/minio/data
+/minio/nginx/ssl/private.key
+/minio/nginx/ssl/public.crt
+.env
