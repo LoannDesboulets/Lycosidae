@@ -2,3 +2,5 @@
 /minio/nginx/ssl/private.key
 /minio/nginx/ssl/public.crt
 .env
+**/__pycache__/
+**/*.pyc

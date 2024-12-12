@@ -5,16 +5,17 @@ from ciqual_models    import payloadSearch, payloadQuery, ciqualDico
 from nutrition_models import aliment
 # Database manager
 from minio   import Minio
-from urllib3 import PoolManager
+from conn_models import CustomHTTPClient
 import pickle, io
 # Load environment variables from the .env file
 from dotenv import load_dotenv
 import os
-load_dotenv()
+dotenv_path = os.path.join(os.path.dirname(os.path.abspath("")),"minio", '.env')
+load_dotenv(dotenv_path)
 
 ## Connect to database
 ## -------------------
-httpClient = PoolManager(
+httpClient = CustomHTTPClient(
                 cert_reqs = 'CERT_REQUIRED',
                 ca_certs  = os.getenv("CA_CERTS_PATH")
 )
@@ -26,7 +27,11 @@ client = Minio(
 	http_client = httpClient
 )
 
-client.list_buckets()
+try:
+    client.list_buckets()
+except Exception as e:
+    print("Error:", e)
+    
 bucket_name = "ciqual"
 
 ## NOT RUN

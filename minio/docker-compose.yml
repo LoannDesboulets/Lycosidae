@@ -13,7 +13,10 @@ services:
       MINIO_ROOT_USER: ${ACCESS_KEY}
       MINIO_ROOT_PASSWORD: ${SECRET_KEY}
     networks:
-      - mynetwork
+      app-network:
+        aliases:
+          - minioservice
+
 
   nginx:
     image: nginx:alpine
@@ -27,7 +30,11 @@ services:
     depends_on:
       - minio
     networks:
-      - mynetwork
+      app-network:
+        aliases:
+          - minioreverseproxy
+
 
 networks:
-  mynetwork:
+  app-network:
+    driver: bridge
